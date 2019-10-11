@@ -10,13 +10,6 @@ using std::string; using std::fixed;
 
 
 
-/* this is the inverse
-[[-0.59375    -0.3828125   0.5703125   0.4921875 ]
- [ 0.296875    0.31640625 -0.41015625 -0.12109375]
- [-0.09375    -0.0078125   0.1953125  -0.1328125 ]
- [ 0.625       0.21875    -0.46875    -0.28125   ]]
-*/
-
 
 void fl(double s[4][4][4], double matA[4][4], double c[], size_t);
 void matMult(double z[4][4], double x[4][4], double y[4][4], size_t);
@@ -37,7 +30,7 @@ void printMatrix(double matForPrint[4][4]){
             cout << fixed <<matForPrint[i][j] << " ";
         cout << "]" << (i==n-1 ? "" : "\n");
     }
-    cout << "]"<< endl;
+    cout << "] \n"<< endl;
     
 }
 
@@ -121,18 +114,42 @@ int main(){
     //Set the size of the matrix here
     const size_t n = 4;
 
-    //Matrix for inverse entered here
+    //The matrices used for testing inverse function
     double matA[n][n] = { 
         {5,2,4,6},
         {5,8,7,2},
         {6,4,8,5},
         {5,4,1,3}
     };
+
+    double matB[n][n] = {
+        {55,23,1,45},
+        {5,65,14,26},
+        {25,14,88,2},
+        {25,25,18,99}
+    };
+
+    //Inverse matrices as calculated in numpy - See extra python file for proof of results
+
+    string matAinverseText =
+        "[[-0.59375    -0.3828125   0.5703125   0.4921875 ]"
+         "\n [ 0.296875    0.31640625 -0.41015625 -0.12109375]"
+         "\n [-0.09375    -0.0078125   0.1953125  -0.1328125 ]"
+         "\n [ 0.625       0.21875    -0.46875    -0.28125   ]]";
     
+    string matBinverseText = 
+        "[[ 0.02147166 -0.00479942  0.00226743 -0.0085452 ]"
+         "\n [ 0.00156592  0.01719185 -0.00169073 -0.00519266]"
+         "\n [-0.0062426  -0.00130587  0.01103738  0.00295753]"
+         "\n [-0.00468255 -0.00289197 -0.00215243  0.01303243]]";
+
+
+
 
 
     //Create arrays to hold relevant matrices for Fadeev-Leverrier
-    double d[n][n];
+    double matAinverse[n][n];
+    double matBinverse[n][n];
     double c[n];
     double s[n][n][n];
 
@@ -142,15 +159,37 @@ int main(){
     //Populate the inverse matrix elementwise
     for(int i=0; i <n; ++i)
         for(int j=0; j < n; ++j)
-            d[i][j] = -s[n-1][i][j]/c[0];
+            matAinverse[i][j] = -s[n-1][i][j]/c[0];
+
+    //Repeated for the second matrix
+    fl(s,matB,c,n);
+
+    for(int i=0; i <n; ++i)
+        for(int j=0; j < n; ++j)
+            matBinverse[i][j] = -s[n-1][i][j]/c[0];
     
     
+
+    //printing the results for comparison
+
+    cout << "For the matrix A given by:" << endl;
     printMatrix(matA);
-    printMatrix(d);
+    cout << "The expected inverse is: \n" << matAinverseText << endl;
+    cout << "\n The inverse was found to be: " << endl;
+    printMatrix(matAinverse);
+
+
+    cout << "\n" << "For the matrix B given by: " << endl;
+    printMatrix(matB);
+    cout << "The expected inverse is: \n" << matBinverseText << endl;
+    cout << "\n The inverse was found to be: " << endl;
+    printMatrix(matBinverse);
 
 
 
-    cout << "End of program press any key to finish";
+
+
+    cout << " \n End of program press any key to terminate";
     cin.get();
 
 
