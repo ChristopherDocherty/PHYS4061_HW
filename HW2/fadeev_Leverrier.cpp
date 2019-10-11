@@ -30,7 +30,8 @@ void printMatrix(double matForPrint[4][4]){
             cout << fixed <<matForPrint[i][j] << " ";
         cout << "]" << (i==n-1 ? "" : "\n");
     }
-    cout << "] \n"<< endl;
+    cout << "] \n" << setprecision(prec) <<endl;
+
     
 }
 
@@ -196,9 +197,3 @@ int main(){
 
     return 0;
 }
-
-
-
-
-
-
