@@ -23,6 +23,13 @@ double tr(double x[4][4], size_t n);
 void fl(double s[4][4][4], double matA[4][4], double c[], size_t n){   
 
     
+    for (int i = 0; i < n; i++)
+        for(int j=0; j < n; j++)
+            for(int k=0; k < n; k++)
+                s[i][j][k] = 0;
+
+
+
     for(int i=0; i < n; ++i)
         s[0][i][i] = 1;
 
@@ -52,7 +59,6 @@ void matMult(double z[4][4], double x[4][4], double y[4][4], size_t n){
         for(int j=0; j < n; j++)
             for(int k=0; k < n; k++)
             z[i][j] += x[i][k] * y[k][j];
-            cout <<"blah"<<endl;
 }
 
 
@@ -81,27 +87,24 @@ int main(){
     
     double d[n][n];
     
-    for(int i=0; i <n; ++i){
-        for(int j=0; j < n; ++j)
-            cout << d[i][j];
-        cout<<endl;
-    }
 
     double c[n];
 
     double s[n][n][n];
-    /*
+
+    
     fl(s,matA,c,n);
 
     for(int i=0; i <n; ++i)
         for(int j=0; j < n; ++j)
             d[i][j] = -s[n-1][i][j]/c[0];
     
+    for(int i=0; i <n; ++i){
+        for(int j=0; j < n; ++j)
+            cout << d[i][j];
+        cout<<endl;
+    }
 
-
-
-
-*/
     return 0;
 }
 
