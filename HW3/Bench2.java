@@ -11,6 +11,7 @@ public static void main(String argv[]) {
     double u[] = new double[n+1];
     double d[] = new double[n+1];
     double s[] = new double[n+1];
+    
     double l = 3, l2 = l/2, h = l/n, h2 = h*h;
     double x0 = 0.25, x2 = x0*x0, e0 = 1/Math.E;
     double x = 0, rho = 3, g = 9.8, f0 = 200;
@@ -74,9 +75,8 @@ public static void main(String argv[]) {
 
             for (int i=1; i<n; ++i) {
                 fi = u[i];
-                u[i] = p*u[i]
-                    +q*((d[i+1]+d[i])*u[i+1]
-                        +(d[i]+d[i-1])*u[i-1]+2*s[i])/(4*d[i]);
+                u[i] = p * u[i]
+                    + q * ((d[i+1] + d[i]) * u[i+1] + (d[i] + d[i-1]) * u[i-1] + 2 * s[i]) / (4 * d[i]);
                 fi = u[i]-fi;
                 du += fi*fi;
             }
